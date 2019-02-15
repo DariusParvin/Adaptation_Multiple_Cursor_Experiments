@@ -8,7 +8,7 @@ numBslBlocks = 11;
 numTrainBlocks = 80;
 for i=1:numTrainBlocks
     sample1 = subjMean.nanmean_hand(subjMean.BN==(i + numBslBlocks) );
-    [t_score(i),p(i)] = ttest(sample1,[],2,'onesample');
+    [t_score(i),p(i)] = ttest1(sample1,[],2,'onesample');
 end
 sig_pval = p < .05;
 sig_pval = [0 sig_pval 0];

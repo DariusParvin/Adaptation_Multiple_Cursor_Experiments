@@ -17,9 +17,9 @@ function dpPlotGeneralization(genGrpMean, genGrpSEM, gn, col)
     % Reference lines and formatting
     ylim([-4 25]);
     xlim([-50 65]);
-    drawline([0], 'dir', 'horz', 'linestyle', '-','linewidth',1);
-    drawline([0], 'dir', 'vert', 'linestyle', '-','linewidth',1);
-    drawline([45], 'dir', 'vert', 'linestyle', ':','linewidth',1.5);
+    drawline1([0], 'dir', 'horz', 'linestyle', '-','linewidth',1);
+    drawline1([0], 'dir', 'vert', 'linestyle', '-','linewidth',1);
+    drawline1([45], 'dir', 'vert', 'linestyle', ':','linewidth',1.5);
     
     xlabel('Target Angle (deg)'); ylabel('Hand Angle (deg)'); 
 end

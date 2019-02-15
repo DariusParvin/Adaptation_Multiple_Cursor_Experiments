@@ -112,7 +112,7 @@ fr.col(4,:)= [234/255 0 238/255];
 % -----------------------------------------------------
 
 % Training and Aftereffect Generalization
-clearvars -except T* fr* subj*
+clearvars -except T* fr* subj* figDir*
 % close all
 D = T3;
 
@@ -143,7 +143,7 @@ genGrpSEM = varfun(@sem,genSubjMean,'GroupingVariables',{'Group','tiGen'},...
     'OutputFormat','table');
 
 %% (not in paper) View individual subject - Trial vs Hand angle
-clearvars -except T* fr* subj* all* gen*
+clearvars -except T* fr* subj* all* gen* figDir*
 close all
 D = T3;
 
@@ -244,7 +244,7 @@ dp_MC_cluster_analysis_oneGroup( allSubjMean( allSubjMean.Group == 4,: ) );
 %% -----------------------------------------------------
 % Fit Exponential to subjects
 rng(1) % Set seed
-clearvars -except T* fr* subj* all* gen*
+clearvars -except T* fr* subj* all* gen* figDir*
 
 grp1params = dp_MC_fitExp(allSubjMean( allSubjMean.Group == 1,: ));
 grp2params = dp_MC_fitExp(allSubjMean( allSubjMean.Group == 2,: ));
@@ -255,7 +255,7 @@ dpPrintTtest2(grp1params(:,2) , grp2params(:,2) , 'One vs Three Cursor B fits')
 % Fit Exponential to Bootstrapped Data
 rng(1) % Set seed
 tic
-clearvars -except T* fr* subj* all* gen*
+clearvars -except T* fr* subj* all* gen* figDir*
 rng(1)
 for gi = 1:3
     grpParams = dp_MC_fitExpBootstrap(allSubjMean( allSubjMean.Group == gi,: ));
@@ -298,7 +298,7 @@ end
 fitGausTable = table(sigma, mu, height, offset, fitted_gen)
 
 %% Bootstrapped Gaussian fits
-clearvars -except T* fr* subj* all* gen*
+clearvars -except T* fr* subj* all* gen* figDir*
 tic
 rng(1) % Set seed
 
