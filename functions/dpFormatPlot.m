@@ -18,8 +18,8 @@ if strcmp(figType,'trials')
     
     % draw reference lines
     l = [24.5 264.5 504.5 528.5 600.5];
-    drawline(l, 'dir', 'vert','linewidth',0.1);
-    drawline([0], 'dir', 'horz','linewidth',0.1);
+    drawline1(l, 'dir', 'vert','linewidth',0.1);
+    drawline1([0], 'dir', 'horz','linewidth',0.1);
     
     xlabel('Trial number') % x-axis label
     ylabel('Hand angle (deg)') % y-axis label
@@ -38,8 +38,8 @@ elseif strcmp(figType,'blocks')
     % draw reference lines
     %     l = [1.5 11.5 91.5 92.5];
     l = [11.5];
-    drawline(l, 'dir', 'vert','linewidth',0.1);
-    drawline([0], 'dir', 'horz','linewidth',0.1);
+    drawline1(l, 'dir', 'vert','linewidth',0.1);
+    drawline1([0], 'dir', 'horz','linewidth',0.1);
     
     xlabel('Cycle number') % x-axis label
     ylabel('Hand angle (deg)') % y-axis label

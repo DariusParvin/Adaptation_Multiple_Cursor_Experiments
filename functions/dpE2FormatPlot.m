@@ -18,8 +18,8 @@ if strcmp(figType,'trials')
     
     % draw reference lines
     l = [39.5 104.5 304.5 343.5];
-    drawline(l, 'dir', 'vert','linewidth',0.1);
-    drawline([0], 'dir', 'horz','linewidth',0.1);
+    drawline1(l, 'dir', 'vert','linewidth',0.1);
+    drawline1([0], 'dir', 'horz','linewidth',0.1);
     
     
     
@@ -37,6 +37,6 @@ elseif strcmp(figType,'blocks')
     % draw reference lines
 %     l = [1.5 11.5 91.5 92.5];
     l = [3.5 8.5 48.5 51.5];
-    drawline(l, 'dir', 'vert','linewidth',0.1);
-    drawline([0], 'dir', 'horz','linewidth',0.1); 
+    drawline1(l, 'dir', 'vert','linewidth',0.1);
+    drawline1([0], 'dir', 'horz','linewidth',0.1); 
 end
