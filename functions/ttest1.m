@@ -1,4 +1,4 @@
-function [t,p]=ttest(groupA,groupB,tails,kind)
+function [t,p]=ttest1(groupA,groupB,tails,kind)
 % function [t,p]=ttest(groupA,groupB,tails,kind)
 % Computes simple t-test on data from groupA and Group B
 % tails: 1: one-sided test(tests for A>B) 2: two-sided test
