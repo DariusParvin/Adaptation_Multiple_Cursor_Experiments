@@ -218,12 +218,11 @@ end
 fprintf('\n\n*** Training Block Stats ***\n');
 % -----------------------------------------------------
 % Early learning (mean of cycles 3-7)
+% One vs Three cursor group
 early_idx = allSubjMean.BN>=14 & allSubjMean.BN<=18;
 earlySubjMean = varfun(@nanmean, allSubjMean(early_idx,:),'GroupingVariables',{'Group','SN'},...
     'OutputFormat','table');
 earlySubjMean = dpRenameNanMean(earlySubjMean);
-
-% Early learning: One vs Three cursor group
 dpPrintTtest(earlySubjMean, fr.group_names, 1, 2, 'Early Learning')
 
 % -----------------------------------------------------
@@ -252,11 +251,25 @@ end
 dpPrintTtest(genSubjMean(train_idx,:), fr.group_names, 2, 3, 'AE')
 
 
+
 % -----------------------------------------------------
-% Three Cursor vs Compensate groups. Early learning and Late training
-fprintf('\n\n*** Three Cursor vs Compensate. Early learning and Late training ***\n');
-dpPrintTtest(earlySubjMean, fr.group_names, 2, 3, 'Early Learning')
-dpPrintTtest(lateSubjMean, fr.group_names, 2, 3, 'Late Learning')
+% Early learning (mean of cycles 3-7)
+% One vs Three cursor group
+early_idx = allSubjMean.BN>=14 & allSubjMean.BN<=18;
+earlySubjMean = varfun(@nanmean, allSubjMean(early_idx,:),'GroupingVariables',{'Group','SN'},...
+    'OutputFormat','table');
+earlySubjMean = dpRenameNanMean(earlySubjMean);
+dpPrintTtest(earlySubjMean, fr.group_names, 1, 2, 'Early Learning')
+
+% -----------------------------------------------------
+% Late learning (mean of last 10 cycles (cycles 82-91) )
+late_idx = allSubjMean.BN>=82 & allSubjMean.BN<=91;
+lateSubjMean = varfun(@nanmean, allSubjMean(late_idx,:),'GroupingVariables',{'Group','SN'},...
+    'OutputFormat','table');
+lateSubjMean = dpRenameNanMean(lateSubjMean);
+dpPrintTtest(lateSubjMean, fr.group_names, 1, 2, 'Late Learning')
+
+
 %% -----------------------------------------------------
 % Cluster analysis on training between Group 1 (one cursor) and 2 (three cursor)?
 % dp_MC_cluster_analysis( allSubjMean( allSubjMean.Group == 2 | allSubjMean.Group == 4,: ) );

@@ -28,7 +28,7 @@ switch (kind)
                 nanmean(groupA(indx)),nanstd(groupA(indx))/sqrt(N),...
                 nanmean(groupB(indx)),nanstd(groupB(indx))/sqrt(N),...
                 nanmean(groupA(indx)-groupB(indx)),std(groupA(indx)-groupB(indx))/sqrt(N));
-            fprintf('t(%i) = %2.3f  p = %2.3f\n',df,t,p);
+            fprintf('t(%i) = %2.3f,  p = %2.3f',df,t,p);
         end;
     case 'independent'
         indxA=find(~isnan(groupA));
@@ -47,11 +47,11 @@ switch (kind)
         if (nargout==0)
             fprintf(['Group 1: %2.3f (%2.3f)\n'...
                      'Group 2: %2.3f (%2.3f)\n'...
-                     'Difference: %2.3f (%2.3f)\n'],...
+                     'Difference: %2.3f (%2.3f)'],...
                         nanmean(groupA(indxA)),nanstd(groupA(indxA))/sqrt(Na),...
                         nanmean(groupB(indxB)),nanstd(groupB(indxB))/sqrt(Nb),...
             nanmean(groupA(indxA))-nanmean(groupB(indxB)),SE); % THIS IS INCORRECT: nanstd(groupA(indxA)-groupB(indxB))); 
-            fprintf('t(%i) = %2.3f  p = %2.3f\n',df,t,p);
+            fprintf('t(%i) = %2.3f,  p = %2.3f',df,t,p);
         end;
     case 'onesample'
         if isempty(groupB) || length(groupB)>1
@@ -69,9 +69,13 @@ switch (kind)
             p=2*(1-tcdf(abs(t),df));
         else 
             p=1-tcdf(t,df);
-        end; 
+        end;
         if (nargout==0)
-            fprintf('Mean (SEM): %2.2f (%2.3f)\n',nanmean(groupA(indx)),nanstd(groupA(indx))/sqrt(N));
-            fprintf('t(%i) = %2.3f  p = %2.3f\n',df,t,p);
+            if p < 0.001
+                fprintf('t(%i) = %2.3f, p < 0.001',df,t);
+            else
+                %             fprintf('Mean (SEM): %2.2f (%2.3f)\n',nanmean(groupA(indx)),nanstd(groupA(indx))/sqrt(N));
+                fprintf('t(%i) = %2.3f, p = %2.3f',df,t,p);
+            end
         end;
 end;
