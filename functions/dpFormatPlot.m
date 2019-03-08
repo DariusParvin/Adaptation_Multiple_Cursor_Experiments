@@ -38,12 +38,12 @@ elseif strcmp(figType,'blocks')
     % draw reference lines
     %     l = [1.5 11.5 91.5 92.5];
     l = [11.5];
-    drawline1(l, 'dir', 'vert','linewidth',0.1);
-    drawline1([0], 'dir', 'horz','linewidth',0.1);
+    drawline1(l, 'dir', 'vert','linewidth',0.5);
+    drawline1([0], 'dir', 'horz','linewidth',0.5);
     
     % ideal performance
 %     plot([l 91.5],[45 45],'k','linewidth',1,'linestyle',':');
-    plot([l 91.5],[45 45],'k','linewidth',0.1);
+    plot([l 91.5],[45 45],'k','linewidth',0.5);
     
     % label blocks
 %     text(2.5,35,'Baseline','FontSize',7,'Rotation',90);

@@ -213,16 +213,16 @@ no_fb_base =patch([35 55 55 35],[min(ylim) min(ylim) max(ylim) max(ylim)],zeros(
 set(no_fb_base,'facecolor',[1 0 0]); set(no_fb_base,'edgealpha',0);
 no_fb_post =patch([125 145 145 125],[min(ylim) min(ylim) max(ylim) max(ylim)],zeros(1,4));
 set(no_fb_post,'facecolor',[0 1 0]);set(no_fb_post,'edgealpha',0);
-alpha(no_fb_base,0.1)
-alpha(no_fb_post,0.1)
+alpha(no_fb_base,0.2)
+alpha(no_fb_post,0.2)
 
 x = genGrpMean.tiFlipRel;
 y = genGrpMean.nanmean_nanmean_rel_hand;
 err = genGrpSEM.sem_nanmean_rel_hand;
-shadedErrorBar(x, y, err, {'color', [0 0 1]} );
+dpShadedErrorBar(x, y, err, {'color', [0 0 1]}, 'linewidth',1.5 );
 plot(x, y, '.', 'color', [0 0 1], 'markersize', 15 );
 
-xlabel('Target angle (deg)'); ylabel('Heading angle (deg)')
+xlabel('Target angle (deg)'); ylabel('Hand angle (deg)')
 
 % print(sprintf('%sE2_AE_GEN',figDir),'-painters','-dpdf')
 
@@ -337,7 +337,7 @@ y2 = D.rel_hand(D.BN==49 & D.tiFlipRel  == 135);
 dpE2PlotCorrelation(x2,y2,'g')
 
 % title('Beta weights')
-ylabel('Aftereffect');
+ylabel('Aftereffect (deg)');
 xlabel('Normalized beta weight');
 
 

@@ -172,13 +172,13 @@ end
 %% PLOT FIG 1 Comparison between 2 groups
 
 dpPlot_compareGroups(allGrpMean,allGrpSEM,genGrpMean, genGrpSEM, [1 2], fr.col)
-print(sprintf('%sFig3Comparison1_%s', figDir, date),'-painters','-dpdf')
+print(sprintf('%sFig3Comparison1',figDir),'-painters','-dpdf')
 
 dpPlot_compareGroups(allGrpMean,allGrpSEM,genGrpMean, genGrpSEM, [3 4], fr.col)
-print(sprintf('%sFig3Comparison2_%s', figDir, date),'-painters','-dpdf')
+print(sprintf('%sFig3Comparison2',figDir),'-painters','-dpdf')
 
 dpPlot_compareGroups(allGrpMean,allGrpSEM,genGrpMean, genGrpSEM, [2 3], fr.col)
-print(sprintf('%sFig3Comparison3_%s', figDir, date),'-painters','-dpdf')
+print(sprintf('%sFig3Comparison3_%s',figDir),'-painters','-dpdf')
 
 print(sprintf('%sE2egSubj_%s',figDir,date),'-painters','-djpeg')
 %% PLOT FIG 3 Bar graph - Aftereffect at training target Bar graph
@@ -206,7 +206,7 @@ for gn = 1:4;
     
     % Labels and Formatting
     axis([0.5 4.5 -5 30])
-    ylabel('Heading angle (deg)');
+    ylabel('Heading Angle (deg)');
     set(gca,'xtick', 1:4 ,'xticklabel',fr.group_names([1 2 3 4]),...
         'xticklabelrotation',45);
 end
