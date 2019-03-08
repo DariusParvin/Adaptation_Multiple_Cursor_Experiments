@@ -1,5 +1,5 @@
 %% Set directory
-clearvars
+clearvars; warning('off','all');
 addpath(genpath('..'))
 % save figures here
 figDir = '../Figures/';
@@ -197,7 +197,7 @@ dpE2PlotTraining(trainGrpMean, trainGrpSEM, 1, [0 0 1])
 % Title and labels
 xlabel('Cycle number'); ylabel('Hand angle (deg)')
 
-print(sprintf('%sE2_Training',figDir),'-painters','-dpdf')
+% print(sprintf('%sE2_Training',figDir),'-painters','-dpdf')
 
 %% FIG 2 Aftereffect Generalization
 close all
@@ -224,7 +224,7 @@ plot(x, y, '.', 'color', [0 0 1], 'markersize', 15 );
 
 xlabel('Target angle (deg)'); ylabel('Heading angle (deg)')
 
-print(sprintf('%sE2_AE_GEN',figDir),'-painters','-dpdf')
+% print(sprintf('%sE2_AE_GEN',figDir),'-painters','-dpdf')
 
 %% FIG 3 Example of tracking
 figure(3); hold all;
@@ -270,7 +270,7 @@ ylabel('Direction (deg)');
 xlabel('Trial number');
 % set(gca,'xtick', 1:2 ,'xticklabel',{'Irrelevant','Relevant'},...
 %     'xticklabelrotation',45);
-print(sprintf('%sE2_EG_Tracking',figDir),'-painters','-dpdf')
+% print(sprintf('%sE2_EG_Tracking',figDir),'-painters','-dpdf')
 
 %% FIG 4 Tracking weights bar graph
 figure(4); hold all;
@@ -316,7 +316,7 @@ ylabel('Regression coefficient');
 set(gca,'xtick', 1:2 ,'xticklabel',{'Irrelevant','Relevant'},...
     'xticklabelrotation',45);
 
-print(sprintf('%sE2BetaBarGraph',figDir),'-painters','-dpdf')
+% print(sprintf('%sE2BetaBarGraph',figDir),'-painters','-dpdf')
 
 %% FIG 5 Correlation of Weight vs AE
 % clearvars -except T* fr* subj*
@@ -355,22 +355,26 @@ text(0.85,2,rel_txt,'FontWeight','bold');
 irrel_txt = sprintf('r = %.3f\np = %.3f',R2(1,2),P2(1,2));
 text(0,10,irrel_txt)
 
-print(sprintf('%sE2_AE_Corr',figDir),'-painters','-dpdf')
+% print(sprintf('%sE2_AE_Corr',figDir),'-painters','-dpdf')
+
 %% Stats
 clc
 % Print stats to console
 fprintf('\n\n*** Stats ***\n');
 
 % Aftereffect ttest at Relevant Target
-AE_rel = genSubjMean.nanmean_rel_hand(genSubjMean.tiFlipRel==45);
-ttest1(AE_rel, 0, 2, 'onesample');
+dpE2PrintTtest1(AE_rel, 'Relevant AE')
 
 % Aftereffect ttest at Irrelevant Target
 AE_irrel = genSubjMean.nanmean_rel_hand(genSubjMean.tiFlipRel==135);
-ttest1(AE_irrel, 0, 2, 'onesample');
+dpE2PrintTtest1(AE_irrel, 'Irrelevant AE')
 
 % Aftereffect Relevant vs Irrelevant (in relevant direction) 
 dpE2PrintTtest(AE_rel, AE_irrel, 'Relevant', 'Irrelevant', 'Aftereffect')
+
+% Beta weights vs 0
+dpE2PrintTtest1(regressTable15.bRel,'Relevant BetaWeight')
+dpE2PrintTtest1(regressTable15.bIrrel,'Irrelevant BetaWeight')
 
 % Beta weight ttest
 dpE2PrintTtest(regressTable15.bRel, regressTable15.bIrrel, 'Relevant', 'Irrelevant', 'BetaWeight')

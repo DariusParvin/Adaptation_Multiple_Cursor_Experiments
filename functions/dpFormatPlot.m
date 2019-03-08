@@ -11,9 +11,9 @@ if strcmp(figType,'trials')
     
     % plot no feedback trials as shaded
     no_fb_base =patch([0.5 24.5 24.5 0.5],[min(ylim) min(ylim) max(ylim) max(ylim)],zeros(1,4));
-    set(no_fb_base,'facecolor',.1*[1 1 1]); set(no_fb_base,'edgecolor',.7*[1 1 1]);
+    set(no_fb_base,'facecolor',.2*[1 1 1]); set(no_fb_base,'edgecolor','none');
     no_fb_post =patch([504.5 528.5 528.5 504.5],[min(ylim) min(ylim) max(ylim) max(ylim)],zeros(1,4));
-    set(no_fb_post,'facecolor',.1*[1 1 1]); set(no_fb_post,'edgecolor',.7*[1 1 1]);
+    set(no_fb_post,'facecolor',.2*[1 1 1]); set(no_fb_post,'edgecolor','none');
     alpha(.05)
     
     % draw reference lines
@@ -30,16 +30,25 @@ elseif strcmp(figType,'blocks')
     
     % Shade the no feedback trials
     no_fb_base =patch([0.5 1.5 1.5 0.5],[min(ylim) min(ylim) max(ylim) max(ylim)],zeros(1,4));
-    set(no_fb_base,'facecolor',.1*[1 1 1]); set(no_fb_base,'edgecolor',.7*[1 1 1]);
+    set(no_fb_base,'facecolor',.2*[1 1 1]); set(no_fb_base,'edgecolor','none');
     no_fb_post =patch([91.5 92.5 92.5 91.5],[min(ylim) min(ylim) max(ylim) max(ylim)],zeros(1,4));
-    set(no_fb_post,'facecolor',.1*[1 1 1]); set(no_fb_post,'edgecolor',.7*[1 1 1]);
-    alpha(.05)
+    set(no_fb_post,'facecolor',.2*[1 1 1]); set(no_fb_post,'edgecolor','none');
+    alpha(.1)
     
     % draw reference lines
     %     l = [1.5 11.5 91.5 92.5];
     l = [11.5];
     drawline1(l, 'dir', 'vert','linewidth',0.1);
     drawline1([0], 'dir', 'horz','linewidth',0.1);
+    
+    % ideal performance
+%     plot([l 91.5],[45 45],'k','linewidth',1,'linestyle',':');
+    plot([l 91.5],[45 45],'k','linewidth',0.1);
+    
+    % label blocks
+%     text(2.5,35,'Baseline','FontSize',7,'Rotation',90);
+%     text(13.5,35,'Training','FontSize',7,'Rotation',90);
+%     text(93.5,35,'Aftereffect','FontSize',7,'Rotation',90);
     
     xlabel('Cycle number') % x-axis label
     ylabel('Hand angle (deg)') % y-axis label

@@ -10,7 +10,7 @@ function dpPlotTraining(trainGrpMean, trainGrpSEM, gn, col)
     x = trainGrpMean.BN(idx);
     y = trainGrpMean.nanmean_nanmean_hand(idx)  ;
     err = trainGrpSEM.sem_nanmean_hand(idx);
-    shadedErrorBar(x, y, err, {'color', col(gn,:) } );
+    dpShadedErrorBar(x, y, err, {'color', col(gn,:),'LineWidth',1.5 } );
     
     % Plot training
     idx = trainGrpMean.Group == gn & trainGrpMean.BN > 11 & trainGrpMean.BN < 92;
@@ -18,7 +18,7 @@ function dpPlotTraining(trainGrpMean, trainGrpSEM, gn, col)
     x = trainGrpMean.BN(idx);
     y = trainGrpMean.nanmean_nanmean_hand(idx)  ;
     err = trainGrpSEM.sem_nanmean_hand(idx);
-    shadedErrorBar(x, y, err, {'color', col(gn,:) } ); 
+    dpShadedErrorBar(x, y, err, {'color', col(gn,:),'LineWidth',1.5 } ); 
     
     % Plot aftereffect
     idx = trainGrpMean.Group == gn & trainGrpMean.BN == 92;
@@ -34,6 +34,6 @@ function dpPlotTraining(trainGrpMean, trainGrpSEM, gn, col)
     x = trainGrpMean.BN(idx);
     y = trainGrpMean.nanmean_nanmean_hand(idx)  ;
     err = trainGrpSEM.sem_nanmean_hand(idx);
-    shadedErrorBar(x, y, err, {'color', col(gn,:) } );
+    dpShadedErrorBar(x, y, err, {'color', col(gn,:),'LineWidth',1.5} );
     
 end

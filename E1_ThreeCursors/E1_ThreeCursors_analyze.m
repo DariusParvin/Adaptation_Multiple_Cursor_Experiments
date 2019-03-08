@@ -1,5 +1,5 @@
 %% Set directory
-clearvars
+clc; clearvars
 addpath(genpath('..'))
 % save figures here
 figDir = '../Figures/';
@@ -257,7 +257,7 @@ dpPrintTtest(genSubjMean(train_idx,:), fr.group_names, 2, 3, 'AE')
 fprintf('\n\n*** Three Cursor vs Compensate. Early learning and Late training ***\n');
 dpPrintTtest(earlySubjMean, fr.group_names, 2, 3, 'Early Learning')
 dpPrintTtest(lateSubjMean, fr.group_names, 2, 3, 'Late Learning')
-%% -----------------------------------------------------
+% -----------------------------------------------------
 % Cluster analysis on training between Group 1 (one cursor) and 2 (three cursor)?
 % dp_MC_cluster_analysis( allSubjMean( allSubjMean.Group == 2 | allSubjMean.Group == 4,: ) );
 %
