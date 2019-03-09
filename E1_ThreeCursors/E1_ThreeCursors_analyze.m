@@ -34,6 +34,10 @@ T.hand = T.hand_theta_maxv;
 remove_vars = {'hand_theta','hand_theta_maxv','hand_theta_maxradv','handMaxRadExt','hand_theta_50'};
 T(:, T.Properties.VariableNames(remove_vars)) = [];
 
+% Creat block labels: 1 = Baseline no FB, 2 = Baseline FB, 3 = Training, 4 = Aftereffect, 5 = Washout
+T.block = dpE1_assign_block_number(T.BN);
+
+
 % -----------------------------------------------------
 % CREATE T.tiFlip and T.tiGen
 % T.tiFlip is the target location (T.ti) but flipped around the nearest training target
@@ -120,13 +124,13 @@ D = T3;
 % GET TRAINING DATA
 % subject mean hand angle over blocks
 allSubjMean = varfun(@nanmean,D,'GroupingVariables',{'Group','SN','BN'},...
-    'OutputFormat','table');
+    'InputVariables',{'hand'},'OutputFormat','table');
 
 % Group mean and SEM over subjects
 allGrpMean = varfun(@nanmean,allSubjMean,'GroupingVariables',{'Group','BN'},...
-    'OutputFormat','table');
+    'InputVariables',{'nanmean_hand'},'OutputFormat','table');
 allGrpSEM = varfun(@sem,allSubjMean,'GroupingVariables',{'Group','BN'},...
-    'OutputFormat','table');
+    'InputVariables',{'nanmean_hand'},'OutputFormat','table');
 
 % -----------------------------------------------------
 % GET AFTEREFFECT GENERALIZATION DATA  (Block 92)
@@ -134,13 +138,13 @@ allGrpSEM = varfun(@sem,allSubjMean,'GroupingVariables',{'Group','BN'},...
 aeGen = D(D.BN==92,:); % Block 92 are Aftereffect trials
 
 genSubjMean = varfun(@nanmean,aeGen,'GroupingVariables',{'Group','SN','tiGen'},...
-    'OutputFormat','table');
+    'InputVariables',{'hand'},'OutputFormat','table');
 
 % Group mean and SEM over subjects
 genGrpMean = varfun(@nanmean,genSubjMean,'GroupingVariables',{'Group','tiGen'},...
-    'OutputFormat','table');
+    'InputVariables',{'nanmean_hand'},'OutputFormat','table');
 genGrpSEM = varfun(@sem,genSubjMean,'GroupingVariables',{'Group','tiGen'},...
-    'OutputFormat','table');
+    'InputVariables',{'nanmean_hand'},'OutputFormat','table');
 
 %% (not in paper) View individual subject - Trial vs Hand angle
 clearvars -except T* fr* subj* all* gen* figDir*
@@ -170,17 +174,15 @@ for si = 3;
 end
 
 %% PLOT FIG 1 Comparison between 2 groups
-
 dpPlot_compareGroups(allGrpMean,allGrpSEM,genGrpMean, genGrpSEM, [1 2], fr.col)
-print(sprintf('%sFig3Comparison1_%s', figDir, date),'-painters','-dpdf')
+% print(sprintf('%sFig3Comparison1_%s', figDir, date),'-painters','-dpdf')
 
 dpPlot_compareGroups(allGrpMean,allGrpSEM,genGrpMean, genGrpSEM, [3 4], fr.col)
-print(sprintf('%sFig3Comparison2_%s', figDir, date),'-painters','-dpdf')
+% print(sprintf('%sFig3Comparison2_%s', figDir, date),'-painters','-dpdf')
 
 dpPlot_compareGroups(allGrpMean,allGrpSEM,genGrpMean, genGrpSEM, [2 3], fr.col)
-print(sprintf('%sFig3Comparison3_%s', figDir, date),'-painters','-dpdf')
+% print(sprintf('%sFig3Comparison3_%s', figDir, date),'-painters','-dpdf')
 
-print(sprintf('%sE2egSubj_%s',figDir,date),'-painters','-djpeg')
 %% PLOT FIG 3 Bar graph - Aftereffect at training target Bar graph
 
 figure(300); hold all;
@@ -213,6 +215,39 @@ end
 
 % print(sprintf('%sFig4AEBarGraph',figDir),'-painters','-dpdf')
 
+%% Stats RT and MT 
+medianRTandMT = varfun(@nanmedian, T3(T3.Group < 5, :),'GroupingVariables',{'Group','SN','block'},...
+    'InputVariables',{'RT','MT'}, 'OutputFormat','table');
+
+medianRTandMT.GroupSN = dp_create_SN_labels(5,12,4);
+
+% make group and block into categorical
+medianRTandMT.Group = categorical(medianRTandMT.Group); medianRTandMT.block = categorical(medianRTandMT.block);
+
+
+% RT Anova between groups
+group_RTs = unstack(medianRTandMT,'nanmedian_RT','Group','GroupingVariable','GroupSN');
+dp_E1_print_anova(group_RTs{:,2:5},'RT');
+
+% MT Anova between groups
+group_MTs = unstack(medianRTandMT,'nanmedian_MT','Group','GroupingVariable','GroupSN');
+dp_E1_print_anova(group_MTs{:,2:5},'MT');
+
+
+% Median and CI for RT and MT
+all_MT_RT_median_CI = varfun(@dp_calculate_bootstrap_mean_CI, medianRTandMT,...
+    'InputVariables',{'nanmedian_RT','nanmedian_MT'},...
+    'OutputFormat','table');
+RT_MT_in_ms = all_MT_RT_median_CI{:,:}.*1000;
+
+fprintf('\nmedian RT = %3.fms [%3.fms, %3.fms] \n', RT_MT_in_ms(1), RT_MT_in_ms(2), RT_MT_in_ms(3));
+fprintf('median MT = %3.fms [%3.fms, %3.fms] \n', RT_MT_in_ms(4), RT_MT_in_ms(5), RT_MT_in_ms(6));
+
+% % Median and 95% CI for RT and MT for each block
+% block_MT_RT_median_CI = varfun(@dp_calculate_bootstrap_mean_CI, medianRTandMT,...
+%     'GroupingVariables',{'block'},...
+%     'InputVariables',{'nanmedian_RT','nanmedian_MT'},...
+%     'OutputFormat','table')
 %% Stats
 % clc
 % Print stats to console
