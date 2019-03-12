@@ -13,6 +13,6 @@ aftereffect = repmat(4,1,1);
 washout = repmat(5, 1, 3);
 mapTo = [baseline_noFB, baseline_FB, training, aftereffect, washout];
 
-newLabel = dp_map_values(mapFrom, mapTo, valuesToLookUp)
+newLabel = dp_map_values(mapFrom, mapTo, valuesToLookUp);
 
 end

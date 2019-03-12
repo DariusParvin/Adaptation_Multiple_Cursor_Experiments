@@ -1,5 +1,8 @@
 function [exact_pval] = dp_MC_cluster_analysis_oneGroup(subjMean)
 
+% Set seed for reproducability 
+rng('default')
+
 grp = unique(subjMean.Group)';
 
 nSubj = 12;

@@ -6,6 +6,8 @@ figDir = '../Figures/';
 
 %% Load and clean Data
 
+remove_outliers = 'T2 = T1;'; % 'T2 = T' keeps outliers, 'T2 = T1' removes outliers 
+
 load('pre-processed_data/E2_trials.mat');
 
 subj = {'ZT45AG1_K1','ZT45AG2_K5','ZT45AG3_K9','ZT45AY1_K3',...%%% Zero Tgt Correlation%
@@ -62,7 +64,9 @@ T1.rel_hand(outlier_idx, 1) = nan;
 
 % -----------------------------------------------------
 % T2 FLIP CCW SUBJECTS TO CW
-T2 = T1;
+% T2 = T1;
+eval(remove_outliers);
+
 flip_idx = T2.rot_cond > 0; % CCW condition index
 T2.abs_hand(flip_idx, 1) = T1.abs_hand(flip_idx, 1).*(-1) + 180; % Flip trials .*(-1)
 T2.rel_hand(flip_idx, 1) = T1.rel_hand(flip_idx, 1).*(-1); % Flip trials .*(-1)
@@ -278,7 +282,7 @@ set(gcf,'units','centimeters','pos',[5 5 5 8]);
 set(gca,'FontSize',10);
 
 bars2plot = {'bIrrel','bRel'};
-col = [1 0 0; 0 1 0];
+col = [0 1 0; 1 0 0];
 
 % Plot bars
 for bn = 1:2;
