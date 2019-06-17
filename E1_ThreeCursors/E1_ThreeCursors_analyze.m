@@ -223,7 +223,7 @@ end
 
 % print(sprintf('%sFig4AEBarGraph',figDir),'-painters','-dpdf')
 
-%% Stats RT and MT 
+%% Stats RT, MT, and TTT (Total Trial Time) 
 medianPerSN = varfun(@nanmedian, T3,'GroupingVariables',{'Group','SN','block'},...
     'InputVariables',{'RT','MT','TTT'}, 'OutputFormat','table');
 
@@ -240,6 +240,10 @@ dp_E1_print_anova(group_RTs{:,2:5},'RT');
 % MT Anova between groups
 group_MTs = unstack(medianPerSN,'nanmedian_MT','Group','GroupingVariable','GroupSN');
 dp_E1_print_anova(group_MTs{:,2:5},'MT');
+
+% TTT Anova between groups
+group_TTTs = unstack(medianPerSN,'nanmedian_TTT','Group','GroupingVariable','GroupSN');
+dp_E1_print_anova(group_TTTs{:,2:5},'TTT');
 
 
 % Median and CI for RT and MT
